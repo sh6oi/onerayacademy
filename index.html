@@ -1,0 +1,2010 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONERAY Educational Academy | أكاديمية ONERAY التعليمية</title>
+    
+    <!-- Google Fonts - Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ==================== CSS Variables ==================== */
+        :root {
+            --primary-white: #ffffff;
+            --primary-black: #0a0a0a;
+            --primary-yellow: #FFD700;
+            --secondary-yellow: #FFC107;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #495057;
+            --text-gray: #6c757d;
+            --border-color: #dee2e6;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+            --transition-fast: 0.3s ease;
+            --transition-medium: 0.5s ease;
+            --transition-slow: 0.7s ease;
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 20px;
+            --border-radius-xl: 30px;
+            --max-width: 1200px;
+            --section-padding: 80px 20px;
+            --font-family: 'Cairo', sans-serif;
+        }
+
+        /* ==================== Reset & Base ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--primary-white);
+            color: var(--primary-black);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color var(--transition-fast);
+        }
+
+        button {
+            cursor: pointer;
+            font-family: var(--font-family);
+            border: none;
+            outline: none;
+            transition: all var(--transition-fast);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==================== Animations ==================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes scanLine {
+            0% {
+                top: -100%;
+            }
+            50% {
+                top: 100%;
+            }
+            100% {
+                top: -100%;
+            }
+        }
+
+        @keyframes rotate360 {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* ==================== Scroll Animations ==================== */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-delay-1 {
+            transition-delay: 0.1s;
+        }
+        .animate-delay-2 {
+            transition-delay: 0.2s;
+        }
+        .animate-delay-3 {
+            transition-delay: 0.3s;
+        }
+        .animate-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        /* ==================== Navigation Bar ==================== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .navbar-logo {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-black);
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-yellow);
+            font-weight: 900;
+            font-size: 20px;
+            letter-spacing: 1px;
+            transition: transform var(--transition-fast);
+        }
+
+        .navbar-brand:hover .navbar-logo {
+            transform: rotate(360deg);
+            transition: transform 0.5s ease;
+        }
+
+        .navbar-brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-brand-title {
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--primary-black);
+            line-height: 1.3;
+        }
+
+        .navbar-brand-subtitle {
+            font-size: 11px;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .navbar-menu-item a {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--primary-black);
+            position: relative;
+            padding: 5px 0;
+            transition: color var(--transition-fast);
+        }
+
+        .navbar-menu-item a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-yellow);
+            transition: width var(--transition-fast);
+        }
+
+        .navbar-menu-item a:hover {
+            color: var(--text-gray);
+        }
+
+        .navbar-menu-item a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-cta {
+            background-color: var(--primary-yellow);
+            color: var(--primary-black);
+            padding: 10px 24px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 700;
+            font-size: 14px;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .navbar-cta:hover {
+            background-color: var(--secondary-yellow);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+        }
+
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary-black);
+            cursor: pointer;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-white);
+            z-index: 999;
+            padding: 100px 20px 20px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mobile-menu-item a {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-black);
+            display: block;
+            padding: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .mobile-menu-item a:hover {
+            background: var(--light-gray);
+        }
+
+        /* ==================== Hero Section ==================== */
+        .hero {
+            position: relative;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 80px 20px;
+            overflow: hidden;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            animation: fadeInLeft 0.8s ease;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero-badge i {
+            font-size: 14px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            color: var(--primary-black);
+        }
+
+        .hero-title span {
+            color: var(--primary-yellow);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 16px;
+        }
+
+        .hero-description {
+            font-size: 16px;
+            color: var(--text-gray);
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: var(--border-radius-sm);
+            font-size: 16px;
+            font-weight: 700;
+            transition: all var(--transition-fast);
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-yellow);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--primary-black);
+            color: var(--primary-white);
+        }
+
+        .btn-secondary:hover {
+            background: #1a1a1a;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-black);
+            border: 2px solid var(--primary-black);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            transform: translateY(-3px);
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeInRight 0.8s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .medical-visual {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            background: var(--primary-black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .medical-visual::before {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            border: 3px solid var(--primary-yellow);
+            border-radius: 50%;
+            animation: rotate360 20s linear infinite;
+        }
+
+        .medical-visual::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            border: 2px dashed var(--primary-yellow);
+            border-radius: 50%;
+            animation: rotate360 15s linear infinite reverse;
+        }
+
+        .medical-icon {
+            font-size: 80px;
+            color: var(--primary-yellow);
+            animation: pulse 3s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .medical-scan {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-yellow);
+            animation: scanLine 4s linear infinite;
+        }
+
+        /* ==================== Sections ==================== */
+        .section {
+            padding: var(--section-padding);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            color: var(--primary-black);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary-yellow);
+            border-radius: 2px;
+        }
+
+        .section-description {
+            font-size: 16px;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ==================== About Section ==================== */
+        .about-section {
+            background: var(--light-gray);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .about-card {
+            background: var(--primary-white);
+            padding: 30px;
+            border-radius: var(--border-radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-fast);
+            border: 1px solid var(--border-color);
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-yellow);
+        }
+
+        .about-card-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: var(--primary-black);
+            transition: transform var(--transition-fast);
+        }
+
+        .about-card:hover .about-card-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .about-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .about-card-text {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* ==================== Content Categories ==================== */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .category-card {
+            background: var(--primary-white);
+            padding: 25px;
+            border-radius: var(--border-radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-yellow);
+            transform: scaleX(0);
+            transition: transform var(--transition-fast);
+        }
+
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-yellow);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+            color: var(--primary-black);
+            transition: all var(--transition-fast);
+        }
+
+        .category-card:hover .category-icon {
+            background: var(--primary-yellow);
+            transform: scale(1.1);
+        }
+
+        .category-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .category-description {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .category-link {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary-black);
+            border-bottom: 2px solid var(--primary-yellow);
+            padding-bottom: 2px;
+            transition: all var(--transition-fast);
+        }
+
+        .category-link:hover {
+            color: var(--primary-yellow);
+            border-bottom-color: var(--primary-black);
+        }
+
+        /* ==================== Apps Section ==================== */
+        .apps-section {
+            background: var(--primary-black);
+            color: var(--primary-white);
+        }
+
+        .apps-section .section-title {
+            color: var(--primary-white);
+        }
+
+        .apps-section .section-description {
+            color: #b0b0b0;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+            justify-content: center;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .app-card {
+            background: var(--primary-white);
+            padding: 30px;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-fast);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .app-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-yellow);
+            box-shadow: 0 16px 32px rgba(255, 215, 0, 0.2);
+        }
+
+        .app-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--primary-yellow);
+            border-radius: var(--border-radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+            color: var(--primary-black);
+            transition: transform var(--transition-fast);
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: var(--border-radius-sm);
+        }
+
+        .app-card:hover .app-icon {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .app-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary-black);
+            margin-bottom: 8px;
+        }
+
+        .app-arabic-name {
+            font-size: 16px;
+            color: var(--text-gray);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .app-category {
+            display: inline-block;
+            background: var(--light-gray);
+            color: var(--text-gray);
+            padding: 5px 14px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .app-description {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .app-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            padding: 12px 24px;
+            border-radius: var(--border-radius-sm);
+            font-size: 15px;
+            font-weight: 700;
+            transition: all var(--transition-fast);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .app-btn:hover {
+            background: var(--secondary-yellow);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+        }
+
+        /* ==================== Why ONERAY ==================== */
+        .why-section {
+            background: var(--light-gray);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .why-card {
+            background: var(--primary-white);
+            padding: 30px;
+            border-radius: var(--border-radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-fast);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-yellow);
+            transform: scaleX(0);
+            transition: transform var(--transition-fast);
+        }
+
+        .why-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .why-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .why-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 35px;
+            color: var(--primary-black);
+            transition: transform var(--transition-fast);
+        }
+
+        .why-card:hover .why-icon {
+            transform: rotate(360deg);
+            transition: transform 0.6s ease;
+        }
+
+        .why-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .why-text {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* ==================== Students Section ==================== */
+        .students-section {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            text-align: center;
+        }
+
+        .students-section .section-title {
+            color: var(--primary-white);
+        }
+
+        .students-section .section-description {
+            color: #b0b0b0;
+        }
+
+        .students-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .students-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #d0d0d0;
+            margin-bottom: 30px;
+        }
+
+        .btn-students {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            padding: 16px 32px;
+            border-radius: var(--border-radius-sm);
+            font-size: 18px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-students:hover {
+            background: var(--secondary-yellow);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(255, 215, 0, 0.3);
+        }
+
+        /* ==================== Latest Content ==================== */
+        .latest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .latest-card {
+            background: var(--primary-white);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+        }
+
+        .latest-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-yellow);
+        }
+
+        .latest-image {
+            height: 200px;
+            background: var(--primary-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: var(--primary-yellow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .latest-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+        }
+
+        .latest-content {
+            padding: 20px;
+        }
+
+        .latest-category {
+            display: inline-block;
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .latest-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .latest-excerpt {
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .latest-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+        }
+
+        .latest-btn {
+            background: transparent;
+            color: var(--primary-black);
+            border: 2px solid var(--primary-black);
+            padding: 8px 16px;
+            border-radius: var(--border-radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+
+        .latest-btn:hover {
+            background: var(--primary-black);
+            color: var(--primary-yellow);
+            transform: translateY(-2px);
+        }
+
+        /* ==================== CTA Section ==================== */
+        .cta-section {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .cta-title {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            color: var(--primary-white);
+        }
+
+        .cta-text {
+            font-size: 18px;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+        }
+
+        .btn-cta {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            padding: 16px 32px;
+            border-radius: var(--border-radius-sm);
+            font-size: 18px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-cta:hover {
+            background: var(--secondary-yellow);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(255, 215, 0, 0.3);
+        }
+
+        /* ==================== Footer ==================== */
+        .footer {
+            background: #000000;
+            color: #d0d0d0;
+            padding: 40px 20px 20px;
+        }
+
+        .footer-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-brand {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--primary-white);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-brand-logo {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-yellow);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--primary-black);
+        }
+
+        .footer-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #a0a0a0;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--primary-white);
+            transition: all var(--transition-fast);
+        }
+
+        .footer-social-link:hover {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            transform: translateY(-3px);
+        }
+
+        .footer-heading {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-white);
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-link a {
+            font-size: 14px;
+            color: #a0a0a0;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-link a:hover {
+            color: var(--primary-yellow);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #a0a0a0;
+        }
+
+        /* ==================== Modal ==================== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: var(--primary-white);
+            width: 90%;
+            max-width: 1000px;
+            height: 90vh;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: scaleIn 0.3s ease;
+            position: relative;
+        }
+
+        .modal-header {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary-yellow);
+        }
+
+        .modal-header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .modal-header-title i {
+            color: var(--primary-yellow);
+            font-size: 22px;
+        }
+
+        .modal-close {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: none;
+        }
+
+        .modal-close:hover {
+            background: var(--secondary-yellow);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modal-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ==================== Responsive Design ==================== */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .medical-visual {
+                width: 300px;
+                height: 300px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .section {
+                padding: 50px 20px;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+
+            .apps-grid,
+            .latest-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .modal-content {
+                width: 95%;
+                height: 95vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 26px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .medical-visual {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== Navigation Bar ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-brand">
+                <div class="navbar-logo">O</div>
+                <div class="navbar-brand-text">
+                    <span class="navbar-brand-title">ONERAY</span>
+                    <span class="navbar-brand-subtitle">Educational Academy</span>
+                </div>
+            </a>
+            
+            <ul class="navbar-menu">
+                <li class="navbar-menu-item"><a href="#home">الرئيسية</a></li>
+                <li class="navbar-menu-item"><a href="#content">المحتوى التعليمي</a></li>
+                <li class="navbar-menu-item"><a href="#apps">التطبيقات الرقمية</a></li>
+                <li class="navbar-menu-item"><a href="#about">عن الأكاديمية</a></li>
+            </ul>
+            
+            <button class="navbar-cta" onclick="scrollToApps()">ابدأ الآن</button>
+            
+            <button class="navbar-toggle" id="navbarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item"><a href="#home">الرئيسية</a></li>
+            <li class="mobile-menu-item"><a href="#content">المحتوى التعليمي</a></li>
+            <li class="mobile-menu-item"><a href="#apps">التطبيقات الرقمية</a></li>
+            <li class="mobile-menu-item"><a href="#about">عن الأكاديمية</a></li>
+            <li class="mobile-menu-item"><button class="navbar-cta" style="width: 100%; text-align: center;" onclick="scrollToApps()">ابدأ الآن</button></li>
+        </ul>
+    </div>
+
+    <!-- ==================== Hero Section ==================== -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-graduation-cap"></i>
+                    منصة تعليمية متخصصة
+                </div>
+                <h1 class="hero-title">
+                    أكاديمية <span>ONERAY</span> التعليمية
+                </h1>
+                <h2 class="hero-subtitle">
+                    بوابتك التعليمية في عالم الأشعة والتصوير الطبي
+                </h2>
+                <p class="hero-description">
+                    نتعلم، نبسط، ونطوّر… نقدم محتوى تعليمي متخصص في تقنيات الأشعة والتصوير الطبي، 
+                    مع أدوات رقمية تساعد الطلبة وفنيي الأشعة على التعلم والعمل بكفاءة أكبر.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#content" class="btn btn-primary">
+                        <i class="fas fa-book-open"></i>
+                        استكشف المحتوى
+                    </a>
+                    <a href="#apps" class="btn btn-secondary">
+                        <i class="fas fa-mobile-alt"></i>
+                        اكتشف التطبيقات
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="medical-visual">
+                    <div class="medical-scan"></div>
+                    <i class="fas fa-x-ray medical-icon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== About Section ==================== -->
+    <section class="section about-section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ما هي أكاديمية ONERAY؟</h2>
+                <p class="section-description">
+                    أكاديمية ONERAY التعليمية هي منصة تعليمية متخصصة في مجال تقنيات الأشعة والتصوير الطبي، 
+                    نهدف من خلالها إلى تقديم المعرفة بطريقة مبسطة وعملية، ومساعدة طلبة وفنيي الأشعة على 
+                    تطوير مهاراتهم والوصول إلى المعلومات والأدوات التي يحتاجونها في رحلتهم التعليمية والمهنية.
+                </p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card animate-on-scroll">
+                    <div class="about-card-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3 class="about-card-title">تخصص دقيق</h3>
+                    <p class="about-card-text">
+                        محتوى موجه بشكل خاص إلى مجال الأشعة والتصوير الطبي
+                    </p>
+                </div>
+                <div class="about-card animate-on-scroll animate-delay-1">
+                    <div class="about-card-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="about-card-title">تبسيط المعرفة</h3>
+                    <p class="about-card-text">
+                        تحويل المعلومات المعقدة إلى محتوى واضح وسهل الفهم
+                    </p>
+                </div>
+                <div class="about-card animate-on-scroll animate-delay-2">
+                    <div class="about-card-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="about-card-title">تطبيقات رقمية</h3>
+                    <p class="about-card-text">
+                        تطبيقات تساعد الطالب وفني الأشعة في الدراسة والعمل
+                    </p>
+                </div>
+                <div class="about-card animate-on-scroll animate-delay-3">
+                    <div class="about-card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="about-card-title">تطوير مستمر</h3>
+                    <p class="about-card-text">
+                        إضافة محتوى وتطبيقات جديدة بشكل مستمر
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Content Categories ==================== -->
+    <section class="section" id="content">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">المحتوى التعليمي</h2>
+                <p class="section-description">
+                    استكشف مجموعة واسعة من المواضيع المتخصصة في تقنيات الأشعة والتصوير الطبي
+                </p>
+            </div>
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- سيتم حقن البطاقات هنا عبر JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Apps Section ==================== -->
+    <section class="section apps-section" id="apps">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">التطبيقات الرقمية</h2>
+                <p class="section-description">
+                    أدوات تقنية صُممت لتجعل التعلم والعمل في مجال الأشعة أسهل
+                </p>
+            </div>
+            <div class="apps-grid" id="appsGrid">
+                <!-- سيتم حقن التطبيق هنا عبر JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Why ONERAY ==================== -->
+    <section class="section why-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">لماذا أكاديمية ONERAY؟</h2>
+                <p class="section-description">
+                    لأننا نؤمن بأن التعليم الجيد يجب أن يكون متاحًا للجميع
+                </p>
+            </div>
+            <div class="why-grid">
+                <div class="why-card animate-on-scroll">
+                    <div class="why-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="why-title">محتوى متخصص</h3>
+                    <p class="why-text">
+                        محتوى موجه بشكل خاص إلى مجال الأشعة والتصوير الطبي
+                    </p>
+                </div>
+                <div class="why-card animate-on-scroll animate-delay-1">
+                    <div class="why-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3 class="why-title">شرح مبسط</h3>
+                    <p class="why-text">
+                        نحوّل المعلومات المعقدة إلى محتوى واضح وسهل الفهم
+                    </p>
+                </div>
+                <div class="why-card animate-on-scroll animate-delay-2">
+                    <div class="why-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="why-title">تطبيقات عملية</h3>
+                    <p class="why-text">
+                        تطبيقات رقمية تساعد الطالب وفني الأشعة في الدراسة والعمل
+                    </p>
+                </div>
+                <div class="why-card animate-on-scroll animate-delay-3">
+                    <div class="why-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="why-title">تطوير مستمر</h3>
+                    <p class="why-text">
+                        إضافة محتوى وتطبيقات جديدة بشكل مستمر
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Students Section ==================== -->
+    <section class="section students-section">
+        <div class="container">
+            <div class="students-content">
+                <div class="section-header">
+                    <h2 class="section-title">كل ما يحتاجه طالب الأشعة في مكان واحد</h2>
+                    <p class="section-description">
+                        من المحاضرات والمراجعات إلى التطبيقات والمصادر التعليمية، نسعى لبناء بيئة تعليمية 
+                        تساعدك على تطوير معرفتك ومهاراتك في مجال الأشعة.
+                    </p>
+                </div>
+                <button onclick="scrollToApps()" class="btn-students">
+                    <i class="fas fa-rocket"></i>
+                    ابدأ رحلتك التعليمية
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Latest Content ==================== -->
+    <section class="section" id="latest">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">أحدث المحتويات</h2>
+                <p class="section-description">
+                    اقرأ أحدث المقالات والمحاضرات والمنشورات التعليمية
+                </p>
+            </div>
+            <div class="latest-grid" id="latestGrid">
+                <!-- سيتم حقن المحتوى هنا عبر JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA Section ==================== -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">طوّر معرفتك في الأشعة</h2>
+            <p class="cta-text">
+                ابدأ الآن واكتشف محتوى وتطبيقات صُممت خصيصًا لطلبة وفنيي الأشعة
+            </p>
+            <button onclick="scrollToApps()" class="btn-cta">
+                <i class="fas fa-mobile-alt"></i>
+                استكشف التطبيقات الرقمية
+            </button>
+        </div>
+    </section>
+
+    <!-- ==================== Footer ==================== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <div class="footer-brand-logo">O</div>
+                        ONERAY Educational Academy
+                    </div>
+                    <p class="footer-description">
+                        منصة تعليمية متخصصة في تقنيات الأشعة والتصوير الطبي، تهدف إلى تبسيط المعرفة 
+                        وتوفير التطبيقات التي تساعد الطلبة وفنيي الأشعة.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="footer-heading">روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#home">الرئيسية</a></li>
+                        <li class="footer-link"><a href="#content">المحتوى التعليمي</a></li>
+                        <li class="footer-link"><a href="#apps">التطبيقات الرقمية</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-heading">معلومات</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#about">عن الأكاديمية</a></li>
+                        <li class="footer-link"><a href="#">سياسة الخصوصية</a></li>
+                        <li class="footer-link"><a href="#">شروط الاستخدام</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 ONERAY Educational Academy. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== Modal ==================== -->
+    <div class="modal-overlay" id="appModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-header-title">
+                    <img src="https://handicapped-green-iye35rn2.edgeone.dev/file.png" alt="وضعيات التصوير" style="width: 30px; height: 30px; border-radius: 5px; object-fit: contain;">
+                    <span>Radiographic Positioning - وضعيات التصوير الشعاعي</span>
+                </div>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="modalIframe" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== Data ====================
+        const categoriesData = [
+            { id: 1, name: 'X-Ray', description: 'أساسيات التصوير بالأشعة السينية', icon: 'fa-x-ray' },
+            { id: 2, name: 'CT Scan', description: 'التصوير المقطعي المحوسب', icon: 'fa-circle-notch' },
+            { id: 3, name: 'MRI', description: 'التصوير بالرنين المغناطيسي', icon: 'fa-magnet' },
+            { id: 4, name: 'Ultrasound', description: 'التصوير بالموجات فوق الصوتية', icon: 'fa-wave-square' },
+            { id: 5, name: 'Nuclear Medicine', description: 'الطب النووي والتصوير الوظيفي', icon: 'fa-atom' },
+            { id: 6, name: 'Radiographic Positioning', description: 'وضعيات التصوير الشعاعي', icon: 'fa-person-standing' },
+            { id: 7, name: 'Radiation Protection', description: 'الحماية من الإشعاع', icon: 'fa-shield-halved' },
+            { id: 8, name: 'Radiology Anatomy', description: 'تشريح الأشعة', icon: 'fa-person' },
+            { id: 9, name: 'Radiology Physics', description: 'فيزياء الأشعة', icon: 'fa-atom' },
+            { id: 10, name: 'Image Evaluation', description: 'تقييم الصور الشعاعية', icon: 'fa-image' },
+            { id: 11, name: 'Radiology Terminology', description: 'مصطلحات الأشعة', icon: 'fa-book' }
+        ];
+
+        const appsData = [
+            {
+                id: 1,
+                name: 'Radiographic Positioning',
+                arabicName: 'موقع وضعيات التصوير الشعاعي',
+                description: 'أداة تعليمية تساعد طالب وفني الأشعة على الوصول إلى معلومات وضعيات التصوير الشعاعي بطريقة منظمة وسهلة.',
+                icon: 'https://handicapped-green-iye35rn2.edgeone.dev/file.png',
+                category: 'تطبيق تعليمي',
+                link: 'apps/positioning/main.html'
+            }
+        ];
+
+        const latestContentData = [
+            {
+                id: 1,
+                category: 'X-Ray',
+                title: 'أساسيات التصوير الشعاعي: دليل شامل للمبتدئين',
+                excerpt: 'تعرف على المبادئ الأساسية للتصوير بالأشعة السينية وكيفية إنتاج صور تشخيصية عالية الجودة.',
+                date: '15 يناير 2026',
+                icon: 'fa-x-ray'
+            },
+            {
+                id: 2,
+                category: 'MRI',
+                title: 'فهم تقنيات التصوير بالرنين المغناطيسي',
+                excerpt: 'دليل تفصيلي حول كيفية عمل جهاز الرنين المغناطيسي وتطبيقاته السريرية المختلفة.',
+                date: '10 يناير 2026',
+                icon: 'fa-magnet'
+            },
+            {
+                id: 3,
+                category: 'Radiation Protection',
+                title: 'مبادئ الحماية من الإشعاع في التصوير الطبي',
+                excerpt: 'تعرف على الإجراءات الأساسية لحماية المرضى والعاملين من التعرض للإشعاع.',
+                date: '5 يناير 2026',
+                icon: 'fa-shield-halved'
+            }
+        ];
+
+        // ==================== Render Functions ====================
+        function renderCategories() {
+            const grid = document.getElementById('categoriesGrid');
+            grid.innerHTML = categoriesData.map(cat => `
+                <div class="category-card animate-on-scroll">
+                    <div class="category-icon">
+                        <i class="fas ${cat.icon}"></i>
+                    </div>
+                    <h3 class="category-title">${cat.name}</h3>
+                    <p class="category-description">${cat.description}</p>
+                    <a href="#" class="category-link">استكشف</a>
+                </div>
+            `).join('');
+        }
+
+        function renderApps() {
+            const grid = document.getElementById('appsGrid');
+            grid.innerHTML = appsData.map(app => `
+                <div class="app-card animate-on-scroll">
+                    <div class="app-icon">
+                        <img src="${app.icon}" alt="${app.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\\'fas fa-person-standing\\' style=\\'font-size: 40px; color: var(--primary-black);\\'></i>'">
+                    </div>
+                    <h3 class="app-title">${app.name}</h3>
+                    <p class="app-arabic-name">${app.arabicName}</p>
+                    <span class="app-category">${app.category}</span>
+                    <p class="app-description">${app.description}</p>
+                    <button onclick="openModal('${app.link}')" class="app-btn">
+                        <i class="fas fa-external-link-alt"></i>
+                        الدخول إلى التطبيق
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderLatestContent() {
+            const grid = document.getElementById('latestGrid');
+            grid.innerHTML = latestContentData.map(content => `
+                <div class="latest-card animate-on-scroll">
+                    <div class="latest-image">
+                        <i class="fas ${content.icon}"></i>
+                    </div>
+                    <div class="latest-content">
+                        <span class="latest-category">${content.category}</span>
+                        <h3 class="latest-title">${content.title}</h3>
+                        <p class="latest-excerpt">${content.excerpt}</p>
+                        <div class="latest-meta">
+                            <i class="fas fa-calendar"></i>
+                            <span>${content.date}</span>
+                        </div>
+                        <button class="latest-btn">اقرأ المزيد</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==================== Modal Functions ====================
+        function openModal(appLink) {
+            const modal = document.getElementById('appModal');
+            const iframe = document.getElementById('modalIframe');
+            iframe.src = appLink;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('appModal');
+            const iframe = document.getElementById('modalIframe');
+            modal.classList.remove('active');
+            iframe.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('appModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // ==================== Navigation Functions ====================
+        function scrollToApps() {
+            document.getElementById('apps').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            // Close mobile menu if open
+            document.getElementById('mobileMenu').classList.remove('active');
+        }
+
+        // ==================== Navigation ====================
+        const navbar = document.getElementById('navbar');
+        const navbarToggle = document.getElementById('navbarToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        // Sticky navbar effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        navbarToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-menu-item a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // ==================== Scroll Animations ====================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        function observeElements() {
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // ==================== Smooth Scroll ====================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // ==================== Initialize ====================
+        function init() {
+            renderCategories();
+            renderApps();
+            renderLatestContent();
+            observeElements();
+        }
+
+        // Run initialization when DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
