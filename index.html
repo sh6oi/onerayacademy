@@ -884,6 +884,7 @@
             transition: all var(--transition-fast);
             width: 100%;
             justify-content: center;
+            text-decoration: none;
         }
 
         .app-btn:hover {
@@ -1260,102 +1261,6 @@
             color: #a0a0a0;
         }
 
-        /* ==================== Modal ==================== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .modal-content {
-            background: var(--primary-white);
-            width: 90%;
-            max-width: 1000px;
-            height: 90vh;
-            border-radius: var(--border-radius-lg);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            animation: scaleIn 0.3s ease;
-            position: relative;
-        }
-
-        .modal-header {
-            background: var(--primary-black);
-            color: var(--primary-white);
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 3px solid var(--primary-yellow);
-        }
-
-        .modal-header-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .modal-header-title i {
-            color: var(--primary-yellow);
-            font-size: 22px;
-        }
-
-        .modal-close {
-            background: var(--primary-yellow);
-            color: var(--primary-black);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            border: none;
-        }
-
-        .modal-close:hover {
-            background: var(--secondary-yellow);
-            transform: rotate(90deg);
-        }
-
-        .modal-body {
-            flex: 1;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .modal-body iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
         /* ==================== Responsive Design ==================== */
         @media (max-width: 1024px) {
             .hero-container {
@@ -1428,11 +1333,6 @@
             .btn {
                 padding: 12px 20px;
                 font-size: 14px;
-            }
-
-            .modal-content {
-                width: 95%;
-                height: 95vh;
             }
         }
 
@@ -1761,24 +1661,6 @@
         </div>
     </footer>
 
-    <!-- ==================== Modal ==================== -->
-    <div class="modal-overlay" id="appModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-header-title">
-                    <img src="https://handicapped-green-iye35rn2.edgeone.dev/file.png" alt="وضعيات التصوير" style="width: 30px; height: 30px; border-radius: 5px; object-fit: contain;">
-                    <span>Radiographic Positioning - وضعيات التصوير الشعاعي</span>
-                </div>
-                <button class="modal-close" onclick="closeModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <iframe id="modalIframe" src="" frameborder="0"></iframe>
-            </div>
-        </div>
-    </div>
-
     <script>
         // ==================== Data ====================
         const categoriesData = [
@@ -1803,7 +1685,7 @@
                 description: 'أداة تعليمية تساعد طالب وفني الأشعة على الوصول إلى معلومات وضعيات التصوير الشعاعي بطريقة منظمة وسهلة.',
                 icon: 'https://handicapped-green-iye35rn2.edgeone.dev/file.png',
                 category: 'تطبيق تعليمي',
-                link: 'apps/positioning/main.html'
+                link: 'main.html'  // المسار النسبي للملف main.html في نفس المجلد
             }
         ];
 
@@ -1860,10 +1742,10 @@
                     <p class="app-arabic-name">${app.arabicName}</p>
                     <span class="app-category">${app.category}</span>
                     <p class="app-description">${app.description}</p>
-                    <button onclick="openModal('${app.link}')" class="app-btn">
+                    <a href="${app.link}" class="app-btn" target="_blank">
                         <i class="fas fa-external-link-alt"></i>
                         الدخول إلى التطبيق
-                    </button>
+                    </a>
                 </div>
             `).join('');
         }
@@ -1888,37 +1770,6 @@
                 </div>
             `).join('');
         }
-
-        // ==================== Modal Functions ====================
-        function openModal(appLink) {
-            const modal = document.getElementById('appModal');
-            const iframe = document.getElementById('modalIframe');
-            iframe.src = appLink;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('appModal');
-            const iframe = document.getElementById('modalIframe');
-            modal.classList.remove('active');
-            iframe.src = '';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('appModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
 
         // ==================== Navigation Functions ====================
         function scrollToApps() {
