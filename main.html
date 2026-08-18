@@ -593,7 +593,7 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-    import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+    import { getDatabase, ref, onValue, set, push } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -609,6 +609,82 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const auth = getAuth(app);
+
+    // إعدادات Cloudflare R2
+    const R2_WORKER_URL = 'https://frosty-field-ea93.mojtabakareem77.workers.dev';
+    
+    // دالة تحويل الروابط إلى R2
+    function getR2Url(imagePath) {
+        if (!imagePath) return '';
+        
+        // إذا كان الرابط Cloudinary قديم
+        if (imagePath.includes('res.cloudinary.com')) {
+            // استخراج اسم الملف من رابط Cloudinary
+            const parts = imagePath.split('/');
+            const filename = parts[parts.length - 1];
+            // محاولة استخراج المجلد إذا كان موجوداً
+            const folderIndex = imagePath.indexOf('upload/');
+            if (folderIndex !== -1) {
+                const afterUpload = imagePath.substring(folderIndex + 7);
+                const pathParts = afterUpload.split('/');
+                if (pathParts.length > 1) {
+                    pathParts.pop(); // إزالة اسم الملف
+                    const folder = pathParts.join('/');
+                    return `${R2_WORKER_URL}/${folder}/${filename}`;
+                }
+            }
+            return `${R2_WORKER_URL}/${filename}`;
+        }
+        
+        // إذا كان الرابط R2 مباشرة
+        if (imagePath.includes('frosty-field-ea93')) return imagePath;
+        
+        // إذا كان مجرد اسم ملف أو مسار
+        return `${R2_WORKER_URL}/${imagePath}`;
+    }
+
+    // دالة رفع صورة إلى R2 (محفوظة للاستخدام الداخلي)
+    async function uploadImageToR2(file, path) {
+        try {
+            const response = await fetch(`${R2_WORKER_URL}/${path}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': file.type,
+                },
+                body: file
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'فشل رفع الصورة');
+            }
+            
+            const data = await response.json();
+            return data.url;
+        } catch (error) {
+            console.error('Error uploading to R2:', error);
+            throw error;
+        }
+    }
+
+    // دالة حذف صورة من R2
+    async function deleteImageFromR2(path) {
+        try {
+            const response = await fetch(`${R2_WORKER_URL}/${path}`, {
+                method: 'DELETE'
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'فشل حذف الصورة');
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.error('Error deleting from R2:', error);
+            throw error;
+        }
+    }
 
     // منع النقر الأيمن على الصور
     document.addEventListener('contextmenu', function(e) {
@@ -632,7 +708,7 @@
         const lightboxImage = document.getElementById('lightboxImage');
         const lightboxCaption = document.getElementById('lightboxCaption');
         
-        lightboxImage.src = imageSrc;
+        lightboxImage.src = getR2Url(imageSrc);
         lightboxCaption.textContent = caption || '';
         lightbox.classList.add('show');
         document.body.style.overflow = 'hidden';
@@ -966,20 +1042,26 @@
         document.getElementById('detailBox').style.display = 'block';
         document.getElementById('detailTitle').textContent = pos.name || '';
         document.getElementById('detailBadge').textContent = pos.region || '';
+        
+        // تحويل روابط الصور إلى R2
+        const realImgUrl = getR2Url(pos.realImg);
+        const xrayImgUrl = getR2Url(pos.xrayImg);
+        
         document.getElementById('detailImages').innerHTML = `
             <figure>
-                <div class="watermark-container" onclick="openImageLightbox('${pos.realImg || ''}', 'صورة حقيقية - ${pos.name || ''}')">
-                    <img src="${pos.realImg || ''}" alt="صورة حقيقية" class="protected-image">
+                <div class="watermark-container" onclick="openImageLightbox('${realImgUrl}', 'صورة حقيقية - ${pos.name || ''}')">
+                    <img src="${realImgUrl}" alt="صورة حقيقية" class="protected-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22 font-size=%2216%22%3Eلا توجد صورة%3C/text%3E%3C/svg%3E'">
                 </div>
                 <figcaption>صورة حقيقية (اضغط للتكبير)</figcaption>
             </figure>
             <figure>
-                <div class="watermark-container" onclick="openImageLightbox('${pos.xrayImg || ''}', 'صورة شعاعية - ${pos.name || ''}')">
-                    <img src="${pos.xrayImg || ''}" alt="صورة شعاعية" class="protected-image">
+                <div class="watermark-container" onclick="openImageLightbox('${xrayImgUrl}', 'صورة شعاعية - ${pos.name || ''}')">
+                    <img src="${xrayImgUrl}" alt="صورة شعاعية" class="protected-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22 font-size=%2216%22%3Eلا توجد صورة%3C/text%3E%3C/svg%3E'">
                 </div>
                 <figcaption>صورة شعاعية (اضغط للتكبير)</figcaption>
             </figure>
         `;
+        
         document.getElementById('detailInfo').innerHTML = `
             <div><strong>KVP</strong><span>${pos.kvp || '—'}</span></div>
             <div><strong>MAS</strong><span>${pos.mas || '—'}</span></div>
@@ -1016,8 +1098,8 @@
         const shuffled = shuffleArray(positions);
         quizQuestions = shuffled.map(pos => {
             const images = [];
-            if (pos.realImg) images.push(pos.realImg);
-            if (pos.xrayImg) images.push(pos.xrayImg);
+            if (pos.realImg) images.push(getR2Url(pos.realImg));
+            if (pos.xrayImg) images.push(getR2Url(pos.xrayImg));
             const imageSrc = images[Math.floor(Math.random() * images.length)] || '';
             const others = positions.filter(p => p.id !== pos.id);
             const wrong = shuffleArray(others).slice(0, 3).map(p => p.name);
