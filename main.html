@@ -10,7 +10,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
         body { background: #ffffff; min-height: 100vh; color: #000000; overflow: hidden; }
         
-        /* حماية الصور من التحميل */
         .protected-image {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -22,7 +21,6 @@
             position: relative;
         }
         
-        /* حاوية الصورة مع العلامة المائية */
         .watermark-container {
             position: relative;
             display: inline-block;
@@ -86,7 +84,6 @@
             transform: scale(1.05);
         }
         
-        /* نافذة تكبير الصورة */
         .image-lightbox {
             display: none;
             position: fixed;
@@ -236,7 +233,7 @@
         }
         .header h1 { color: #f1c40f; font-weight: 800; font-size: 2.2rem; }
         .header .subtitle { color: #ffffff; font-size: 1.1rem; margin-top: 8px; }
-        .auth-buttons { margin-top: 15px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .auth-buttons { margin-top: 15px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; align-items: center; }
         .auth-btn {
             background: #f1c40f; color: #000000; border: none;
             padding: 10px 20px; border-radius: 30px; font-size: 0.95rem;
@@ -250,6 +247,18 @@
             align-items: center; gap: 8px;
         }
         .user-info { color: #f1c40f; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+        .points-badge {
+            background: #f1c40f; color: #000000; padding: 5px 12px;
+            border-radius: 20px; font-weight: 700; font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 5px;
+        }
+        .global-ranking-btn {
+            background: #27ae60; color: #ffffff; border: none;
+            padding: 10px 15px; border-radius: 20px; font-size: 0.9rem;
+            font-weight: 700; cursor: pointer; display: inline-flex;
+            align-items: center; gap: 5px;
+        }
+        .global-ranking-btn:hover { background: #219a52; }
         
         .search-container {
             margin-bottom: 25px; background: #ffffff; padding: 15px 20px;
@@ -372,8 +381,9 @@
         .modal-overlay.show { display: flex; }
         .modal-content {
             background: #ffffff; border-radius: 20px; padding: 40px 30px;
-            max-width: 450px; width: 100%; border: 3px solid #f1c40f;
+            max-width: 800px; width: 100%; border: 3px solid #f1c40f;
             text-align: center; position: relative;
+            max-height: 90vh; overflow-y: auto;
         }
         .modal-content .crown-icon { font-size: 4rem; color: #f1c40f; margin-bottom: 15px; }
         .modal-content h3 { color: #000000; margin-bottom: 20px; font-size: 1.5rem; font-weight: 800; }
@@ -394,7 +404,115 @@
         }
         .modal-close:hover { background: #000000; color: #f1c40f; }
         
-        /* منع حفظ الصور بالنقر الأيمن */
+        .plans-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        .plan-card {
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 25px;
+            width: 200px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .plan-card:hover {
+            border-color: #f1c40f;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(241, 196, 15, 0.3);
+        }
+        .plan-card.popular {
+            border-color: #f1c40f;
+            background: #fffdf5;
+            box-shadow: 0 8px 25px rgba(241, 196, 15, 0.2);
+        }
+        .plan-card .plan-duration {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+        .plan-card .plan-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #f1c40f;
+            margin-bottom: 5px;
+        }
+        .plan-card .plan-price span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555555;
+        }
+        .plan-card .plan-features {
+            list-style: none;
+            margin: 15px 0;
+            padding: 0;
+            color: #555555;
+            font-size: 0.9rem;
+        }
+        .plan-card .plan-features li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            justify-content: center;
+        }
+        .plan-card .plan-features i {
+            color: #27ae60;
+        }
+        .plan-card .plan-btn {
+            display: inline-block;
+            background: #f1c40f;
+            color: #000000;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        .plan-card .plan-btn:hover {
+            background: #000000;
+            color: #f1c40f;
+        }
+        
+        .ranking-modal {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85); z-index: 9999;
+            align-items: center; justify-content: center; padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        .ranking-modal.show { display: flex; }
+        .ranking-content {
+            background: #ffffff; border-radius: 20px; padding: 30px;
+            max-width: 500px; width: 100%; border: 3px solid #f1c40f;
+            max-height: 80vh; overflow-y: auto; position: relative;
+        }
+        .ranking-content h3 { text-align: center; color: #000000; margin-bottom: 20px; font-size: 1.5rem; font-weight: 800; }
+        .ranking-list { list-style: none; padding: 0; }
+        .ranking-list li {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 15px; border-bottom: 1px solid #f0f0f0;
+            font-weight: 600; color: #000000;
+        }
+        .ranking-list li:first-child { background: #fff9e6; border-radius: 8px; }
+        .ranking-list li .rank { font-weight: 700; color: #f1c40f; margin-left: 10px; }
+        .ranking-list li .username { flex: 1; }
+        .ranking-list li .points { font-weight: 700; color: #27ae60; }
+        .ranking-close {
+            position: absolute; top: 10px; left: 10px;
+            background: #f1c40f; color: #000000; border: none;
+            width: 35px; height: 35px; border-radius: 50%;
+            cursor: pointer; font-size: 1rem;
+        }
+        
         .no-select {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -416,6 +534,14 @@
             }
             .image-lightbox-watermark {
                 font-size: 1.2rem;
+            }
+            .plans-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .plan-card {
+                width: 100%;
+                max-width: 300px;
             }
         }
     </style>
@@ -579,21 +705,63 @@
             <i class="fas fa-times"></i>
         </button>
         <i class="fas fa-crown crown-icon"></i>
-        <h3>ترقية الحساب</h3>
-        <p class="upgrade-message">
-    لترقية حسابك لمدة سنة كاملة بمبلغ <strong>10,000 دينار عراقي</strong><br>
-    وكذلك يمكنك الحصول على اشتراك مجاني لمدة 3 أشهر
-    للاشتراك يرجى مراسلة مدير الموقع على هذا الحساب:
-</p>
+        <h3>اختر باقتك للترقية</h3>
+        <p class="upgrade-message">للاشتراك في أي باقة، يرجى التواصل مع مدير الموقع عبر الحساب التالي:</p>
         <a href="https://www.instagram.com/mojtabakr1.sc?igsh=bXR0YjM1MzJ0NmE0" target="_blank" class="instagram-link">
             <i class="fab fa-instagram"></i> @mojtabakr1.sc
         </a>
+        
+        <div class="plans-container">
+            <div class="plan-card">
+                <div class="plan-duration">3 أشهر</div>
+                <div class="plan-price">5,000 <span>د.ع</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> وصول كامل للمحتوى</li>
+                    <li><i class="fas fa-check"></i> اختبارات غير محدودة</li>
+                </ul>
+                <a href="https://www.instagram.com/mojtabakr1.sc?igsh=bXR0YjM1MzJ0NmE0" target="_blank" class="plan-btn">اشترك الآن</a>
+            </div>
+            
+            <div class="plan-card popular">
+                <div class="plan-duration">6 أشهر</div>
+                <div class="plan-price">8,000 <span>د.ع</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> وصول كامل للمحتوى</li>
+                    <li><i class="fas fa-check"></i> اختبارات غير محدودة</li>
+                    <li><i class="fas fa-check"></i> أولوية الدعم</li>
+                </ul>
+                <a href="https://www.instagram.com/mojtabakr1.sc?igsh=bXR0YjM1MzJ0NmE0" target="_blank" class="plan-btn">اشترك الآن</a>
+            </div>
+            
+            <div class="plan-card">
+                <div class="plan-duration">سنة كاملة</div>
+                <div class="plan-price">10,000 <span>د.ع</span></div>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> وصول كامل للمحتوى</li>
+                    <li><i class="fas fa-check"></i> اختبارات غير محدودة</li>
+                    <li><i class="fas fa-check"></i> أولوية الدعم</li>
+                    <li><i class="fas fa-check"></i> شارة مميزة</li>
+                </ul>
+                <a href="https://www.instagram.com/mojtabakr1.sc?igsh=bXR0YjM1MzJ0NmE0" target="_blank" class="plan-btn">اشترك الآن</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة الترتيب المحلي -->
+<div class="ranking-modal" id="rankingModal">
+    <div class="ranking-content">
+        <button class="ranking-close" id="rankingClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <h3><i class="fas fa-trophy"></i> التقييم المحلي - العراق</h3>
+        <ul class="ranking-list" id="rankingList"></ul>
     </div>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-    import { getDatabase, ref, onValue, set, push } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+    import { getDatabase, ref, onValue, set, push, get, update } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -610,25 +778,20 @@
     const db = getDatabase(app);
     const auth = getAuth(app);
 
-    // إعدادات Cloudflare R2
     const R2_WORKER_URL = 'https://frosty-field-ea93.mojtabakareem77.workers.dev';
     
-    // دالة تحويل الروابط إلى R2
     function getR2Url(imagePath) {
         if (!imagePath) return '';
         
-        // إذا كان الرابط Cloudinary قديم
         if (imagePath.includes('res.cloudinary.com')) {
-            // استخراج اسم الملف من رابط Cloudinary
             const parts = imagePath.split('/');
             const filename = parts[parts.length - 1];
-            // محاولة استخراج المجلد إذا كان موجوداً
             const folderIndex = imagePath.indexOf('upload/');
             if (folderIndex !== -1) {
                 const afterUpload = imagePath.substring(folderIndex + 7);
                 const pathParts = afterUpload.split('/');
                 if (pathParts.length > 1) {
-                    pathParts.pop(); // إزالة اسم الملف
+                    pathParts.pop();
                     const folder = pathParts.join('/');
                     return `${R2_WORKER_URL}/${folder}/${filename}`;
                 }
@@ -636,29 +799,19 @@
             return `${R2_WORKER_URL}/${filename}`;
         }
         
-        // إذا كان الرابط R2 مباشرة
         if (imagePath.includes('frosty-field-ea93')) return imagePath;
         
-        // إذا كان مجرد اسم ملف أو مسار
         return `${R2_WORKER_URL}/${imagePath}`;
     }
 
-    // دالة رفع صورة إلى R2 (محفوظة للاستخدام الداخلي)
     async function uploadImageToR2(file, path) {
         try {
             const response = await fetch(`${R2_WORKER_URL}/${path}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': file.type,
-                },
+                headers: { 'Content-Type': file.type },
                 body: file
             });
-            
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'فشل رفع الصورة');
-            }
-            
+            if (!response.ok) throw new Error('فشل رفع الصورة');
             const data = await response.json();
             return data.url;
         } catch (error) {
@@ -667,18 +820,10 @@
         }
     }
 
-    // دالة حذف صورة من R2
     async function deleteImageFromR2(path) {
         try {
-            const response = await fetch(`${R2_WORKER_URL}/${path}`, {
-                method: 'DELETE'
-            });
-            
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'فشل حذف الصورة');
-            }
-            
+            const response = await fetch(`${R2_WORKER_URL}/${path}`, { method: 'DELETE' });
+            if (!response.ok) throw new Error('فشل حذف الصورة');
             return await response.json();
         } catch (error) {
             console.error('Error deleting from R2:', error);
@@ -686,7 +831,6 @@
         }
     }
 
-    // منع النقر الأيمن على الصور
     document.addEventListener('contextmenu', function(e) {
         if (e.target.tagName === 'IMG') {
             e.preventDefault();
@@ -694,7 +838,6 @@
         }
     });
 
-    // منع السحب والإفلات للصور
     document.addEventListener('dragstart', function(e) {
         if (e.target.tagName === 'IMG') {
             e.preventDefault();
@@ -702,41 +845,29 @@
         }
     });
 
-    // دالة فتح نافذة تكبير الصورة
     window.openImageLightbox = function(imageSrc, caption) {
         const lightbox = document.getElementById('imageLightbox');
         const lightboxImage = document.getElementById('lightboxImage');
         const lightboxCaption = document.getElementById('lightboxCaption');
-        
         lightboxImage.src = getR2Url(imageSrc);
         lightboxCaption.textContent = caption || '';
         lightbox.classList.add('show');
         document.body.style.overflow = 'hidden';
     };
 
-    // دالة إغلاق نافذة تكبير الصورة
     window.closeImageLightbox = function() {
-        const lightbox = document.getElementById('imageLightbox');
-        lightbox.classList.remove('show');
+        document.getElementById('imageLightbox').classList.remove('show');
         document.body.style.overflow = 'auto';
     };
 
-    // إغلاق نافذة التكبير عند النقر عليها
     document.getElementById('imageLightbox').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeImageLightbox();
-        }
+        if (e.target === this) closeImageLightbox();
     });
-
-    // إغلاق نافذة التكبير بزر الإغلاق
-    document.getElementById('imageLightboxClose').addEventListener('click', function() {
-        closeImageLightbox();
-    });
-
-    // إغلاق نافذة التكبير بمفتاح Escape
+    document.getElementById('imageLightboxClose').addEventListener('click', closeImageLightbox);
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeImageLightbox();
+            closeRankingModal();
         }
     });
 
@@ -768,6 +899,8 @@
     let selectedRegion = null;
     let currentUser = null;
     let userSubscription = null;
+    let userPoints = 0;
+    let userQuizProgress = {}; // لتخزين معرفات الأسئلة التي تمت معالجتها
     let quizQuestions = [];
     let currentQuestionIndex = 0;
     let correctCount = 0;
@@ -807,13 +940,11 @@
         const email = document.getElementById('loginEmailInput').value.trim();
         const password = document.getElementById('loginPasswordInput').value;
         const errorDiv = document.getElementById('loginError');
-        
         if (!email || !password) {
             errorDiv.textContent = 'يرجى إدخال البريد وكلمة المرور.';
             errorDiv.style.display = 'block';
             return;
         }
-        
         try {
             await signInWithEmailAndPassword(auth, email, password);
         } catch (error) {
@@ -828,21 +959,26 @@
         const password = document.getElementById('registerPasswordInput').value;
         const errorDiv = document.getElementById('loginError');
         const successDiv = document.getElementById('loginSuccess');
-        
         if (!username || !email || !password) {
             errorDiv.textContent = 'يرجى ملء جميع الحقول.';
             errorDiv.style.display = 'block';
             return;
         }
-        
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             await updateProfile(userCredential.user, { displayName: username });
-            await set(ref(db, 'users/' + userCredential.user.uid), {
+            const uid = userCredential.user.uid;
+            await set(ref(db, 'users/' + uid), {
                 username: username,
                 email: email,
                 createdAt: new Date().toISOString(),
-                subscription: { status: 'none' }
+                subscription: { status: 'none' },
+                points: 0,
+                quizProgress: {} // إضافة حقل لتتبع الأسئلة المجابة
+            });
+            await set(ref(db, 'leaderboard/' + uid), {
+                username: username,
+                points: 0
             });
             successDiv.textContent = 'تم إنشاء الحساب بنجاح!';
             successDiv.style.display = 'block';
@@ -856,13 +992,11 @@
         const email = document.getElementById('forgotEmailInput').value.trim();
         const errorDiv = document.getElementById('loginError');
         const successDiv = document.getElementById('loginSuccess');
-        
         if (!email) {
             errorDiv.textContent = 'يرجى إدخال البريد الإلكتروني.';
             errorDiv.style.display = 'block';
             return;
         }
-        
         try {
             await sendPasswordResetEmail(auth, email);
             successDiv.textContent = 'تم إرسال رابط إعادة التعيين.';
@@ -886,10 +1020,8 @@
         document.getElementById('upgradeModal').classList.remove('show');
     }
 
-    // دالة عرض معلومات الاشتراك
     function showSubscriptionInfo() {
         if (!userSubscription || userSubscription.status !== 'approved') return;
-        
         const startDate = userSubscription.startDate ? new Date(userSubscription.startDate).toLocaleDateString('ar-IQ') : 'غير محدد';
         const endDate = userSubscription.endDate ? new Date(userSubscription.endDate).toLocaleDateString('ar-IQ') : 'غير محدد';
         const price = userSubscription.price || '10,000 دينار عراقي';
@@ -901,37 +1033,20 @@
             display: flex; align-items: center; justify-content: center;
             padding: 20px; backdrop-filter: blur(5px);
         `;
-        
         infoModal.innerHTML = `
             <div style="background: #ffffff; border-radius: 20px; padding: 30px; max-width: 400px; width: 100%; border: 3px solid #f1c40f; text-align: center; position: relative;">
-                <button onclick="this.closest('div').parentElement.remove()" style="position: absolute; top: 10px; left: 10px; background: #f1c40f; color: #000000; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;">
-                    <i class="fas fa-times"></i>
-                </button>
+                <button onclick="this.closest('div').parentElement.remove()" style="position: absolute; top: 10px; left: 10px; background: #f1c40f; color: #000000; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;"><i class="fas fa-times"></i></button>
                 <i class="fas fa-crown" style="font-size: 3rem; color: #f1c40f; margin-bottom: 15px;"></i>
                 <h3 style="color: #000000; margin-bottom: 20px; font-size: 1.5rem; font-weight: 800;">معلومات الاشتراك</h3>
                 <div style="background: #f9f9f9; border-radius: 12px; padding: 20px; margin-bottom: 15px;">
-                    <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #e0e0e0; font-size: 1rem;">
-                        <i class="fas fa-calendar-check" style="color: #27ae60; font-size: 1.2rem;"></i>
-                        <span style="color: #555555; font-weight: 600;">تاريخ البدء:</span>
-                        <span style="color: #000000; font-weight: 700;">${startDate}</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #e0e0e0; font-size: 1rem;">
-                        <i class="fas fa-calendar-times" style="color: #e74c3c; font-size: 1.2rem;"></i>
-                        <span style="color: #555555; font-weight: 600;">تاريخ النفاذ:</span>
-                        <span style="color: #000000; font-weight: 700;">${endDate}</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; font-size: 1rem;">
-                        <i class="fas fa-money-bill" style="color: #f1c40f; font-size: 1.2rem;"></i>
-                        <span style="color: #555555; font-weight: 600;">سعر الاشتراك:</span>
-                        <span style="color: #000000; font-weight: 700;">${price}</span>
-                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #e0e0e0; font-size: 1rem;"><i class="fas fa-calendar-check" style="color: #27ae60; font-size: 1.2rem;"></i><span style="color: #555555; font-weight: 600;">تاريخ البدء:</span><span style="color: #000000; font-weight: 700;">${startDate}</span></div>
+                    <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #e0e0e0; font-size: 1rem;"><i class="fas fa-calendar-times" style="color: #e74c3c; font-size: 1.2rem;"></i><span style="color: #555555; font-weight: 600;">تاريخ النفاذ:</span><span style="color: #000000; font-weight: 700;">${endDate}</span></div>
+                    <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; font-size: 1rem;"><i class="fas fa-money-bill" style="color: #f1c40f; font-size: 1.2rem;"></i><span style="color: #555555; font-weight: 600;">سعر الاشتراك:</span><span style="color: #000000; font-weight: 700;">${price}</span></div>
                 </div>
                 <button onclick="this.closest('div').parentElement.remove()" style="background: #000000; color: #f1c40f; border: 2px solid #f1c40f; padding: 10px 25px; border-radius: 25px; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%;">إغلاق</button>
             </div>
         `;
-        
         document.body.appendChild(infoModal);
-        
         infoModal.addEventListener('click', function(e) {
             if (e.target === infoModal) infoModal.remove();
         });
@@ -945,6 +1060,10 @@
             const userInfo = document.createElement('span');
             userInfo.className = 'user-info';
             userInfo.innerHTML = `<i class="fas fa-user"></i> ${currentUser.displayName || currentUser.email}`;
+            
+            const pointsBadge = document.createElement('span');
+            pointsBadge.className = 'points-badge';
+            pointsBadge.innerHTML = `<i class="fas fa-star"></i> ${userPoints} نقطة`;
             
             const upgradeBtn = document.createElement('button');
             upgradeBtn.className = 'upgrade-btn';
@@ -962,10 +1081,16 @@
             logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> خروج';
             logoutBtn.onclick = () => signOut(auth);
             
-            authButtons.appendChild(userInfo);
-            authButtons.appendChild(upgradeBtn);
+            const rankingBtn = document.createElement('button');
+            rankingBtn.className = 'global-ranking-btn';
+            rankingBtn.innerHTML = '<i class="fas fa-globe"></i> التقييم المحلي';
+            rankingBtn.onclick = openRankingModal;
             
-            // زر معلومات الاشتراك - يظهر فقط للمشتركين
+            authButtons.appendChild(userInfo);
+            authButtons.appendChild(pointsBadge);
+            authButtons.appendChild(upgradeBtn);
+            authButtons.appendChild(rankingBtn);
+            
             if (userSubscription?.status === 'approved') {
                 const infoBtn = document.createElement('button');
                 infoBtn.className = 'auth-btn';
@@ -1043,7 +1168,6 @@
         document.getElementById('detailTitle').textContent = pos.name || '';
         document.getElementById('detailBadge').textContent = pos.region || '';
         
-        // تحويل روابط الصور إلى R2
         const realImgUrl = getR2Url(pos.realImg);
         const xrayImgUrl = getR2Url(pos.xrayImg);
         
@@ -1070,11 +1194,10 @@
         document.getElementById('detailPurpose').innerHTML = `<h4>الغرض</h4><p>${pos.purpose || '—'}</p>`;
     }
 
-    // وظائف الاختبار
     function updateQuizRegionSelect() {
         const select = document.getElementById('quizRegionSelect');
         select.innerHTML = '<option value="">-- اختر المنطقة --</option>';
-        Object.keys(allData).filter(reg => allData[reg] && allData[reg].length >= 4).forEach(reg => {
+        Object.keys(allData).filter(reg => allData[reg] && allData[reg].length > 0).forEach(reg => {
             const option = document.createElement('option');
             option.value = reg;
             option.textContent = reg;
@@ -1093,18 +1216,38 @@
 
     function startQuiz(region) {
         const positions = allData[region] || [];
-        if (positions.length < 4) return;
+        if (positions.length < 1) return;
         
-        const shuffled = shuffleArray(positions);
-        quizQuestions = shuffled.map(pos => {
-            const images = [];
-            if (pos.realImg) images.push(getR2Url(pos.realImg));
-            if (pos.xrayImg) images.push(getR2Url(pos.xrayImg));
-            const imageSrc = images[Math.floor(Math.random() * images.length)] || '';
-            const others = positions.filter(p => p.id !== pos.id);
-            const wrong = shuffleArray(others).slice(0, 3).map(p => p.name);
-            return { imageSrc, correctAnswer: pos.name, choices: shuffleArray([pos.name, ...wrong]) };
+        const allPositionNames = [];
+        Object.keys(allData).forEach(reg => {
+            allData[reg].forEach(pos => {
+                if (pos.name) allPositionNames.push(pos.name);
+            });
         });
+        
+        const allQuestions = [];
+        positions.forEach(pos => {
+            if (pos.realImg) {
+                const wrongChoices = shuffleArray(allPositionNames.filter(name => name !== pos.name)).slice(0, 3);
+                allQuestions.push({
+                    imageSrc: getR2Url(pos.realImg),
+                    correctAnswer: pos.name,
+                    choices: shuffleArray([pos.name, ...wrongChoices]),
+                    questionId: pos.id + '_real'  // معرف فريد للسؤال
+                });
+            }
+            if (pos.xrayImg) {
+                const wrongChoices = shuffleArray(allPositionNames.filter(name => name !== pos.name)).slice(0, 3);
+                allQuestions.push({
+                    imageSrc: getR2Url(pos.xrayImg),
+                    correctAnswer: pos.name,
+                    choices: shuffleArray([pos.name, ...wrongChoices]),
+                    questionId: pos.id + '_xray'  // معرف فريد للسؤال
+                });
+            }
+        });
+        
+        quizQuestions = shuffleArray(allQuestions);
         
         currentQuestionIndex = 0;
         correctCount = 0;
@@ -1157,16 +1300,59 @@
                 
                 document.querySelectorAll('.quiz-choice-btn').forEach(b => b.disabled = true);
                 
+                // تحديد ما إذا كان السؤال قد تمت معالجته مسبقًا
+                const questionId = q.questionId;
+                const isAlreadyAnswered = userQuizProgress[questionId] !== undefined;
+                
+                let pointsDelta = 0;
+                let message = '';
+                
                 if (selected === correct) {
                     this.classList.add('correct');
                     correctCount++;
-                    document.getElementById('quizFeedback').innerHTML = '<span style="color:#27ae60;">✅ صحيح!</span>';
+                    if (!isAlreadyAnswered) {
+                        pointsDelta = 1;
+                        message = '<span style="color:#27ae60;">✅ صحيح! +1 نقطة</span>';
+                    } else {
+                        message = '<span style="color:#27ae60;">✅ صحيح! (تم احتساب النقاط مسبقًا)</span>';
+                    }
                 } else {
                     this.classList.add('wrong');
                     document.querySelectorAll('.quiz-choice-btn').forEach(b => {
                         if (b.dataset.choice === correct) b.classList.add('correct');
                     });
-                    document.getElementById('quizFeedback').innerHTML = `<span style="color:#e74c3c;">❌ خطأ. الصحيح: ${correct}</span>`;
+                    if (!isAlreadyAnswered) {
+                        pointsDelta = -1;
+                        message = `<span style="color:#e74c3c;">❌ خطأ. الصحيح: ${correct} -1 نقطة</span>`;
+                    } else {
+                        message = `<span style="color:#e74c3c;">❌ خطأ. الصحيح: ${correct} (تم احتساب النقاط مسبقًا)</span>`;
+                    }
+                }
+                
+                document.getElementById('quizFeedback').innerHTML = message;
+                
+                // تحديث النقاط في قاعدة البيانات إذا كان السؤال جديدًا
+                if (currentUser && !isAlreadyAnswered) {
+                    const userRef = ref(db, 'users/' + currentUser.uid);
+                    get(userRef).then((snapshot) => {
+                        const currentPoints = snapshot.exists() ? (snapshot.val().points || 0) : 0;
+                        const newPoints = currentPoints + pointsDelta;
+                        // تحديث نقاط المستخدم وسجل التقدم
+                        update(userRef, { 
+                            points: newPoints,
+                            [`quizProgress/${questionId}`]: pointsDelta
+                        })
+                            .then(() => {
+                                userPoints = newPoints;
+                                userQuizProgress[questionId] = pointsDelta;
+                                updateAuthUI();
+                            })
+                            .catch(error => console.error('Error updating points:', error));
+                        
+                        // تحديث leaderboard
+                        update(ref(db, 'leaderboard/' + currentUser.uid), { points: newPoints })
+                            .catch(error => console.error('Error updating leaderboard:', error));
+                    }).catch(error => console.error('Error fetching user data:', error));
                 }
                 
                 document.getElementById('quizScore').textContent = `${correctCount} / ${quizQuestions.length}`;
@@ -1184,6 +1370,121 @@
     window.restartQuiz = function() {
         const region = document.getElementById('quizRegionSelect').value;
         if (region) startQuiz(region);
+    };
+
+    // دالة إنشاء مستخدمين وهميين بنقاط إيجابية
+    async function ensureDummyUsers() {
+        const dummyRef = ref(db, 'dummyUsers');
+        try {
+            const snapshot = await get(dummyRef);
+            if (!snapshot.exists()) {
+                const dummyUsers = {};
+                const names = [
+                    "أحمد", "محمد", "علي", "حسين", "حسن", "مصطفى", "مرتضى", "زينب", "فاطمة", "رقية",
+                    "سارة", "نور", "آية", "ياسمين", "مريم", "هدى", "بتول", "زهراء", "حوراء", "كوثر",
+                    "عبدالله", "كرار", "منتظر", "صادق", "جعفر", "باقر", "مهدي", "سجاد", "عباس", "أمير",
+                    "يوسف", "عمر", "خالد", "سيف", "ليث", "بشار", "رعد", "سعد", "وليد", "طارق",
+                    "سلمى", "دانا", "لينا", "شهد", "تبارك", "رسل", "ملاك", "جنى", "رفل", "سما"
+                ];
+                const shuffledNames = shuffleArray(names);
+                for (let i = 0; i < 50; i++) {
+                    const name = shuffledNames[i % shuffledNames.length] + " " + (i + 1);
+                    const points = Math.floor(Math.random() * 200) + 1;
+                    dummyUsers['dummy_' + (i + 1)] = {
+                        username: name,
+                        points: points
+                    };
+                }
+                await set(dummyRef, dummyUsers);
+            }
+        } catch (error) {
+            console.error('Error ensuring dummy users:', error);
+        }
+    }
+
+    // دالة فتح نافذة الترتيب المحلي
+    window.openRankingModal = async function() {
+        const modal = document.getElementById('rankingModal');
+        modal.classList.add('show');
+        
+        await ensureDummyUsers();
+        
+        const leaderboardRef = ref(db, 'leaderboard');
+        const dummyRef = ref(db, 'dummyUsers');
+        
+        try {
+            const [leaderSnap, dummySnap] = await Promise.all([get(leaderboardRef), get(dummyRef)]);
+            const userList = [];
+            
+            if (leaderSnap.exists()) {
+                const leaders = leaderSnap.val();
+                Object.keys(leaders).forEach(uid => {
+                    const entry = leaders[uid];
+                    if (entry && entry.username && entry.points !== undefined && entry.points > 0) {
+                        userList.push({
+                            uid: uid,
+                            username: entry.username,
+                            points: entry.points,
+                            isCurrent: uid === currentUser?.uid
+                        });
+                    }
+                });
+            }
+            
+            if (dummySnap.exists()) {
+                const dummies = dummySnap.val();
+                Object.keys(dummies).forEach(did => {
+                    const dummy = dummies[did];
+                    if (dummy && dummy.username && dummy.points !== undefined) {
+                        userList.push({
+                            uid: did,
+                            username: dummy.username,
+                            points: dummy.points,
+                            isCurrent: false
+                        });
+                    }
+                });
+            }
+            
+            userList.sort((a, b) => b.points - a.points);
+            
+            const topUsers = userList.slice(0, 50);
+            
+            const list = document.getElementById('rankingList');
+            list.innerHTML = '';
+            
+            if (topUsers.length === 0) {
+                list.innerHTML = '<li>لا يوجد مستخدمون بعد</li>';
+            } else {
+                topUsers.forEach((user, index) => {
+                    const li = document.createElement('li');
+                    if (user.isCurrent) {
+                        li.style.backgroundColor = '#fff9e6';
+                        li.style.fontWeight = '800';
+                    }
+                    li.innerHTML = `
+                        <span class="rank">#${index + 1}</span>
+                        <span class="username">${user.username}</span>
+                        <span class="points">${user.points} نقطة</span>
+                    `;
+                    list.appendChild(li);
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching ranking data:', error);
+            document.getElementById('rankingList').innerHTML = '<li>حدث خطأ في تحميل البيانات</li>';
+        }
+    };
+
+    window.closeRankingModal = function() {
+        document.getElementById('rankingModal').classList.remove('show');
+    };
+
+    document.getElementById('rankingClose').onclick = closeRankingModal;
+    document.getElementById('rankingModal').onclick = function(e) {
+        if (e.target === document.getElementById('rankingModal')) {
+            closeRankingModal();
+        }
     };
 
     document.getElementById('searchInput').oninput = function(e) {
@@ -1218,8 +1519,13 @@
     onAuthStateChanged(auth, (user) => {
         currentUser = user;
         if (user) {
-            onValue(ref(db, 'users/' + user.uid + '/subscription'), (snapshot) => {
-                userSubscription = snapshot.val();
+            onValue(ref(db, 'users/' + user.uid), (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    userSubscription = data.subscription || null;
+                    userPoints = data.points || 0;
+                    userQuizProgress = data.quizProgress || {};
+                }
                 updateAuthUI();
                 renderRegions();
                 document.getElementById('loginScreen').classList.add('hidden');
@@ -1228,6 +1534,8 @@
             });
         } else {
             userSubscription = null;
+            userPoints = 0;
+            userQuizProgress = {};
             document.getElementById('loginScreen').classList.remove('hidden');
             document.getElementById('mainContent').classList.remove('show');
             document.body.style.overflow = 'hidden';
